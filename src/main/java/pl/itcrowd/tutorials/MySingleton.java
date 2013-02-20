@@ -24,28 +24,25 @@ public class MySingleton {
 
     @PostConstruct
     public void PostConstruct() {
-         generateOneToOne();
+        generateOneToOne();
     }
 
-    public void generateOneToOne(){
+    public void generateOneToOne() {
         Person person1 = new Person("kowalski");
         Person person2 = new Person("małysz");
         Person person3 = new Person("sobolewski");
 
-        Address address1 = new Address("street1","city1","11111",person1);
-        Address address2 = new Address("street2","city2","22222",person2);
-        Address address3 = new Address("street3","city3","33333",person3);
+        Address address1 = new Address("street1", "city1", "11111", person1);
+        Address address2 = new Address("street2", "city2", "22222", person2);
+        Address address3 = new Address("street3", "city3", "33333", person3);
 
         person1.setAddress(address1);
         person2.setAddress(address2);
         person3.setAddress(address3);
 
-        entityManager.persist(address1);
-        entityManager.persist(address2);
-        entityManager.persist(address3);
-
         entityManager.persist(person1);
         entityManager.persist(person2);
         entityManager.persist(person3);
+
     }
 }

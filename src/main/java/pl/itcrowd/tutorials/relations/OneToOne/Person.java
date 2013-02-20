@@ -17,12 +17,12 @@ public class Person implements Serializable {
     @Id
     @SequenceGenerator(name = "PERSON_ID_SEQUENCE", sequenceName = "PERSON_ID_SEQUENCE", initialValue = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PERSON_ID_SEQUENCE")
-    private Integer id;
+    private Integer idd;
 
     @Column(name = "NAME")
     private String name;
 
-    @OneToOne(mappedBy = "person")
+    @OneToOne(mappedBy = "person", cascade = CascadeType.ALL)
     private Address address;
 
     public Person() {
@@ -32,12 +32,12 @@ public class Person implements Serializable {
         this.name = name;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getIdd() {
+        return idd;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setIdd(Integer id) {
+        this.idd = id;
     }
 
     public String getName() {
