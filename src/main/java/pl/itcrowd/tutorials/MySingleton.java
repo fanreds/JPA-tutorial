@@ -1,5 +1,7 @@
 package pl.itcrowd.tutorials;
 
+import pl.itcrowd.tutorials.relations.ManyToMany.Course;
+import pl.itcrowd.tutorials.relations.ManyToMany.Student;
 import pl.itcrowd.tutorials.relations.OneToMany.*;
 import pl.itcrowd.tutorials.relations.OneToOne.Address;
 import pl.itcrowd.tutorials.relations.OneToOne.Person;
@@ -25,7 +27,7 @@ public class MySingleton {
 
     @PostConstruct
     public void PostConstruct() {
-        generateOneToMany();
+        generateManyToMany();
     }
 
     public void generateOneToOne() {
@@ -70,5 +72,22 @@ public class MySingleton {
         entityManager.persist(employeeA);
         entityManager.persist(employeeB);
         entityManager.persist(employeeC);
+    }
+
+    public void generateManyToMany(){
+        final Student student1 = new Student("st1");
+        final Student student2 = new Student("st2");
+        final Student student3 = new Student("st3");
+
+        final Course course1 = new Course("eng");
+        final Course course2 = new Course("deu");
+
+        course1.getStudents().add(student1);
+        course1.getStudents().add(student2);
+        course2.getStudents().add(student2);
+        course2.getStudents().add(student3);
+
+        entityManager.persist(course1);
+        entityManager.persist(course2);
     }
 }
