@@ -22,6 +22,9 @@ public class Department implements Serializable {
     @Column(name = "NAME", nullable = false)
     private String name;
 
+    @JoinColumn(name = "COMPANY_ID")
+    @ManyToOne()
+    private Company company;
 
     public Department() {
     }
@@ -46,5 +49,13 @@ public class Department implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 }

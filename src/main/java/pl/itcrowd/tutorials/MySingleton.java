@@ -48,10 +48,16 @@ public class MySingleton {
     }
 
     public void generateOneToMany() {
+        final Company companyA = new Company("comp");
 
         final Department departmentA = new Department("dep1");
         final Department departmentB = new Department("dep2");
 
+        companyA.getDepartments().add(departmentA);
+        companyA.getDepartments().add(departmentB);
+
+        departmentA.setCompany(companyA);
+        departmentB.setCompany(companyA);
 
         final Employee employeeA = new Employee(departmentA, "Emp1");
         final Employee employeeB = new Employee(departmentA, "Emp2");
@@ -60,6 +66,7 @@ public class MySingleton {
         employeeA.setBoss(employeeC);
 
 
+        entityManager.persist(companyA);
         entityManager.persist(employeeA);
         entityManager.persist(employeeB);
         entityManager.persist(employeeC);
