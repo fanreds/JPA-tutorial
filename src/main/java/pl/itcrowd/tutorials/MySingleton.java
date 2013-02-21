@@ -44,6 +44,8 @@ public class MySingleton {
     public void PostConstruct() {
         dao.generateEnsemble();
         dao.checkCache();
+        dao.evictCache();
+        dao.checkCache();
         dao.showEnsemble();
 //        order();
 //        generateManyToMany();

@@ -45,6 +45,12 @@ public class DAO {
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    public void evictCache() {
+        Cache cache = emf.getCache();
+        cache.evict(Ensemble.class);
+    }
+
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public void checkCache() {
         Cache cache = emf.getCache();
         if (cache.contains(Ensemble.class, 1L))
