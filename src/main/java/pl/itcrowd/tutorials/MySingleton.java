@@ -1,5 +1,6 @@
 package pl.itcrowd.tutorials;
 
+import pl.itcrowd.tutorials.elementCollection.Ensemble;
 import pl.itcrowd.tutorials.relations.ManyToMany.Course;
 import pl.itcrowd.tutorials.relations.ManyToMany.EmbeddedAddress;
 import pl.itcrowd.tutorials.relations.ManyToMany.Student;
@@ -38,7 +39,8 @@ public class MySingleton {
 
     @PostConstruct
     public void PostConstruct() {
-        order();
+        generateEnsemble();
+//        order();
 //        generateManyToMany();
 //        query();
     }
@@ -134,6 +136,17 @@ public class MySingleton {
         creditCard.getTransactionsHistory().add(transaction3);
 
         entityManager.persist(creditCard);
+    }
+
+    public void generateEnsemble(){
+        final Ensemble ensemble=new Ensemble("en1");
+
+        ensemble.getSongs().add("song1");
+        ensemble.getSongs().add("song2");
+        ensemble.getSongs().add("song3");
+
+        entityManager.persist(ensemble);
+
     }
 
 }
