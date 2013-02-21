@@ -11,9 +11,13 @@ import pl.itcrowd.tutorials.relations.OneToOne.Address;
 import pl.itcrowd.tutorials.relations.OneToOne.Person;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import javax.ejb.*;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceUnit;
+import javax.transaction.TransactionSynchronizationRegistry;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -30,7 +34,6 @@ public class MySingleton {
 
     private static final Logger LOGGER = Logger.getLogger(MySingleton.class.getCanonicalName());
 
-
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -39,7 +42,9 @@ public class MySingleton {
 
     @PostConstruct
     public void PostConstruct() {
-        generateEnsemble();
+        dao.generateEnsemble();
+        dao.checkCache();
+        dao.showEnsemble();
 //        order();
 //        generateManyToMany();
 //        query();
@@ -98,7 +103,7 @@ public class MySingleton {
 
         final Course course1 = new Course("eng");
         final Course course2 = new Course("deu");
-        final Course course3 = new Course("fr");
+        final Course course3 = new Course("fra");
 
         course1.setAddress(address);
         course2.setAddress(address);
@@ -138,15 +143,5 @@ public class MySingleton {
         entityManager.persist(creditCard);
     }
 
-    public void generateEnsemble(){
-        final Ensemble ensemble=new Ensemble("en1");
-
-        ensemble.getSongs().add("song1");
-        ensemble.getSongs().add("song2");
-        ensemble.getSongs().add("song3");
-
-        entityManager.persist(ensemble);
-
-    }
 
 }

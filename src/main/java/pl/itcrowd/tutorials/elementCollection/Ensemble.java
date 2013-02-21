@@ -14,6 +14,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
+@Cacheable
 public class Ensemble implements Serializable {
 
     @Id
