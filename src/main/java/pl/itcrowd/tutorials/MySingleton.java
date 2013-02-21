@@ -4,6 +4,8 @@ import pl.itcrowd.tutorials.relations.ManyToMany.Course;
 import pl.itcrowd.tutorials.relations.ManyToMany.EmbeddedAddress;
 import pl.itcrowd.tutorials.relations.ManyToMany.Student;
 import pl.itcrowd.tutorials.relations.OneToMany.*;
+import pl.itcrowd.tutorials.relations.OneToMany.order.CreditCard;
+import pl.itcrowd.tutorials.relations.OneToMany.order.Transaction;
 import pl.itcrowd.tutorials.relations.OneToOne.Address;
 import pl.itcrowd.tutorials.relations.OneToOne.Person;
 
@@ -36,8 +38,9 @@ public class MySingleton {
 
     @PostConstruct
     public void PostConstruct() {
-        generateManyToMany();
-        query();
+        order();
+//        generateManyToMany();
+//        query();
     }
 
     public void generateOneToOne() {
@@ -117,6 +120,20 @@ public class MySingleton {
                 LOGGER.info(list.get(i).getName() + " " + list.get(i).getStudents().get(j).getName());
         }
 
+    }
+
+    public void order(){
+        final CreditCard creditCard = new CreditCard("card");
+
+        final Transaction transaction1 = new Transaction("operation1");
+        final Transaction transaction2 = new Transaction("operation2");
+        final Transaction transaction3 = new Transaction("operation3");
+
+        creditCard.getTransactionsHistory().add(transaction1);
+        creditCard.getTransactionsHistory().add(transaction2);
+        creditCard.getTransactionsHistory().add(transaction3);
+
+        entityManager.persist(creditCard);
     }
 
 }
