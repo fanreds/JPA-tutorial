@@ -7,10 +7,11 @@ import pl.itcrowd.tutorials.relations.OneToOne.Address;
 import pl.itcrowd.tutorials.relations.OneToOne.Person;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.Singleton;
-import javax.ejb.Startup;
+import javax.ejb.*;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Created with IntelliJ IDEA.
@@ -22,12 +23,20 @@ import javax.persistence.PersistenceContext;
 @Startup
 @Singleton
 public class MySingleton {
+
+    private static final Logger LOGGER = Logger.getLogger(MySingleton.class.getCanonicalName());
+
+
     @PersistenceContext
     private EntityManager entityManager;
+
+    @EJB
+    private DAO dao;
 
     @PostConstruct
     public void PostConstruct() {
         generateManyToMany();
+        query();
     }
 
     public void generateOneToOne() {
@@ -74,13 +83,16 @@ public class MySingleton {
         entityManager.persist(employeeC);
     }
 
-    public void generateManyToMany(){
+    public void generateManyToMany() {
         final Student student1 = new Student("st1");
         final Student student2 = new Student("st2");
         final Student student3 = new Student("st3");
 
+
+
         final Course course1 = new Course("eng");
         final Course course2 = new Course("deu");
+
 
         course1.getStudents().add(student1);
         course1.getStudents().add(student2);
@@ -89,5 +101,17 @@ public class MySingleton {
 
         entityManager.persist(course1);
         entityManager.persist(course2);
+
     }
+
+
+    public void query() {
+        List<Course> list = dao.getListOfCourses();
+        for (int i = 0; i < list.size(); i++) {
+            for (int j = 0; j < list.get(i).getStudents().size(); j++)
+                LOGGER.info(list.get(i).getName() + " " + list.get(i).getStudents().get(j).getName());
+        }
+
+    }
+
 }

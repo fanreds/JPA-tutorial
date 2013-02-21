@@ -26,6 +26,8 @@ public class Course {
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Student> students = new ArrayList<Student>();
 
+
+
     public Course() {
     }
 
@@ -56,4 +58,5 @@ public class Course {
     public void setStudents(List<Student> students) {
         this.students = students;
     }
+
 }
