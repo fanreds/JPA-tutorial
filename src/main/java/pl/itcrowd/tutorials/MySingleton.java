@@ -1,5 +1,6 @@
 package pl.itcrowd.tutorials;
 
+import pl.itcrowd.tutorials.relations.OneToMany.*;
 import pl.itcrowd.tutorials.relations.OneToOne.Address;
 import pl.itcrowd.tutorials.relations.OneToOne.Person;
 
@@ -24,7 +25,7 @@ public class MySingleton {
 
     @PostConstruct
     public void PostConstruct() {
-        generateOneToOne();
+        generateOneToMany();
     }
 
     public void generateOneToOne() {
@@ -44,5 +45,23 @@ public class MySingleton {
         entityManager.persist(person2);
         entityManager.persist(person3);
 
+    }
+
+    public void generateOneToMany() {
+
+        final Department departmentA = new Department("dep1");
+        final Department departmentB = new Department("dep2");
+
+
+        final Employee employeeA = new Employee(departmentA, "Emp1");
+        final Employee employeeB = new Employee(departmentA, "Emp2");
+        final Employee employeeC = new Employee(departmentB, "Emp3");
+
+        employeeA.setBoss(employeeC);
+
+
+        entityManager.persist(employeeA);
+        entityManager.persist(employeeB);
+        entityManager.persist(employeeC);
     }
 }
