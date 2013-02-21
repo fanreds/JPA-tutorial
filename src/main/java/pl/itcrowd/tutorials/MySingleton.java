@@ -93,6 +93,7 @@ public class MySingleton {
 
         final Course course1 = new Course("eng");
         final Course course2 = new Course("deu");
+        final Course course3 = new Course("fr");
 
         course1.setAddress(address);
         course2.setAddress(address);
@@ -104,6 +105,7 @@ public class MySingleton {
 
         entityManager.persist(course1);
         entityManager.persist(course2);
+        entityManager.persist(course3);
 
     }
 

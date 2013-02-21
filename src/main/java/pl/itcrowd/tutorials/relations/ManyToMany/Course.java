@@ -1,6 +1,7 @@
 package pl.itcrowd.tutorials.relations.ManyToMany;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +21,7 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "COURSE_ID_SEQUENCE")
     private Long id;
 
+    @Size(min = 3,max = 30)
     @Column(name = "NAME",nullable = false)
     private String name;
 
