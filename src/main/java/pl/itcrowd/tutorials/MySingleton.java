@@ -1,6 +1,7 @@
 package pl.itcrowd.tutorials;
 
 import pl.itcrowd.tutorials.relations.ManyToMany.Course;
+import pl.itcrowd.tutorials.relations.ManyToMany.EmbeddedAddress;
 import pl.itcrowd.tutorials.relations.ManyToMany.Student;
 import pl.itcrowd.tutorials.relations.OneToMany.*;
 import pl.itcrowd.tutorials.relations.OneToOne.Address;
@@ -88,11 +89,13 @@ public class MySingleton {
         final Student student2 = new Student("st2");
         final Student student3 = new Student("st3");
 
-
+        EmbeddedAddress address = new EmbeddedAddress("street", "city", "11111");
 
         final Course course1 = new Course("eng");
         final Course course2 = new Course("deu");
 
+        course1.setAddress(address);
+        course2.setAddress(address);
 
         course1.getStudents().add(student1);
         course1.getStudents().add(student2);

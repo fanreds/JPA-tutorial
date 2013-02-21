@@ -26,7 +26,8 @@ public class Course {
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Student> students = new ArrayList<Student>();
 
-
+    @Embedded
+    private EmbeddedAddress address;
 
     public Course() {
     }
@@ -59,4 +60,11 @@ public class Course {
         this.students = students;
     }
 
+    public EmbeddedAddress getAddress() {
+        return address;
+    }
+
+    public void setAddress(EmbeddedAddress address) {
+        this.address = address;
+    }
 }
