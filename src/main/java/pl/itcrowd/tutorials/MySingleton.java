@@ -1,23 +1,22 @@
 package pl.itcrowd.tutorials;
 
-import pl.itcrowd.tutorials.elementCollection.Ensemble;
 import pl.itcrowd.tutorials.relations.ManyToMany.Course;
 import pl.itcrowd.tutorials.relations.ManyToMany.EmbeddedAddress;
 import pl.itcrowd.tutorials.relations.ManyToMany.Student;
-import pl.itcrowd.tutorials.relations.OneToMany.*;
+import pl.itcrowd.tutorials.relations.OneToMany.Company;
+import pl.itcrowd.tutorials.relations.OneToMany.Department;
+import pl.itcrowd.tutorials.relations.OneToMany.Employee;
 import pl.itcrowd.tutorials.relations.OneToMany.order.CreditCard;
 import pl.itcrowd.tutorials.relations.OneToMany.order.Transaction;
 import pl.itcrowd.tutorials.relations.OneToOne.Address;
 import pl.itcrowd.tutorials.relations.OneToOne.Person;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
-import javax.ejb.*;
+import javax.ejb.EJB;
+import javax.ejb.Singleton;
+import javax.ejb.Startup;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceUnit;
-import javax.transaction.TransactionSynchronizationRegistry;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -40,16 +39,12 @@ public class MySingleton {
     @EJB
     private DAO dao;
 
+
+
     @PostConstruct
     public void PostConstruct() {
-        dao.generateEnsemble();
-        dao.checkCache();
-        dao.evictCache();
-        dao.checkCache();
-        dao.showEnsemble();
-//        order();
-//        generateManyToMany();
-//        query();
+        dao.generateManyToMany();
+        dao.query();
     }
 
     public void generateOneToOne() {
@@ -96,42 +91,11 @@ public class MySingleton {
         entityManager.persist(employeeC);
     }
 
-    public void generateManyToMany() {
-        final Student student1 = new Student("st1");
-        final Student student2 = new Student("st2");
-        final Student student3 = new Student("st3");
-
-        EmbeddedAddress address = new EmbeddedAddress("street", "city", "11111");
-
-        final Course course1 = new Course("eng");
-        final Course course2 = new Course("deu");
-        final Course course3 = new Course("fra");
-
-        course1.setAddress(address);
-        course2.setAddress(address);
-
-        course1.getStudents().add(student1);
-        course1.getStudents().add(student2);
-        course2.getStudents().add(student2);
-        course2.getStudents().add(student3);
-
-        entityManager.persist(course1);
-        entityManager.persist(course2);
-        entityManager.persist(course3);
-
-    }
 
 
-    public void query() {
-        List<Course> list = dao.getListOfCourses();
-        for (int i = 0; i < list.size(); i++) {
-            for (int j = 0; j < list.get(i).getStudents().size(); j++)
-                LOGGER.info(list.get(i).getName() + " " + list.get(i).getStudents().get(j).getName());
-        }
 
-    }
 
-    public void order(){
+    public void order() {
         final CreditCard creditCard = new CreditCard("card");
 
         final Transaction transaction1 = new Transaction("operation1");

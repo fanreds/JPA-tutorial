@@ -25,7 +25,7 @@ public class Course {
     @Column(name = "NAME",nullable = false)
     private String name;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Student> students = new ArrayList<Student>();
 
     @Embedded
